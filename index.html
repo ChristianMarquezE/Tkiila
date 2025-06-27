@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tkiila - Soluciones Tecnológicas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración personalizada de Tailwind para colores -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Azul Marino
+                        'navy': '#1F3A5F',
+                        // Rojo tipo Oficina (un rojo más oscuro y profesional)
+                        'office-red': '#991D1D',
+                        // Beige
+                        'beige': '#F5EEDC',
+                        'light-beige': '#FCFBF8', // Un beige aún más claro para fondos
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Fondo general para los espacios entre secciones */
+            color: #333;
+            line-height: 1.6;
+        }
+        /* Estilos personalizados para efectos de desplazamiento suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .card {
+            background-color: white; /* Las tarjetas mantienen un fondo blanco para contraste */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        .btn-primary {
+            background-color: var(--tw-colors-navy); /* Usar la variable de color CSS para navy */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #1a304b; /* Azul marino un poco más oscuro para hover */
+        }
+        .social-link {
+            transition: transform 0.2s ease;
+        }
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+        /* Animaciones para el Hero (definidas aquí para que Tailwind las use) */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in-down { animation: fadeInDown 1s ease-out forwards; }
+        .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards 0.3s; }
+        .animate-scale-in { animation: scaleIn 1s ease-out forwards 0.6s; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Barra de navegación -->
+    <nav class="bg-light-beige shadow-lg fixed w-full z-10 top-0">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-navy rounded-lg p-2 hover:bg-beige transition-colors">Tkiila</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Inicio</a>
+                <a href="#services" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Servicios</a>
+                <a href="#about" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Sobre Mí</a>
+                <a href="#gallery" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Galería</a>
+                <a href="#contact" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Contacto</a>
+            </div>
+            <!-- Botón de menú móvil -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-navy focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-light-beige py-4 shadow-inner">
+            <a href="#home" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Inicio</a>
+            <a href="#services" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Servicios</a>
+            <a href="#about" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Sobre Mí</a>
+            <a href="#gallery" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Galería</a>
+            <a href="#contact" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Sección de inicio (Hero) -->
+    <header id="home" class="bg-gradient-to-r from-navy to-gray-900 text-white min-h-screen flex items-center justify-center text-center pt-20">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight animate-fade-in-down">
+                Tkiila: Soluciones Tecnológicas Sin Miedo
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in-up">
+                Lo dejo listo para ti. Mantenimiento, instalación y actualización de tus equipos.
+            </p>
+            <a href="#services" class="btn-primary inline-block text-lg animate-scale-in">
+                Ver mis servicios <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sección de Servicios -->
+    <section id="services" class="section-padding bg-light-beige">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 text-navy">Nuestros Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Tarjeta de Servicio 1 -->
+                <div class="card flex flex-col items-start p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-desktop text-navy text-4xl mr-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900">Instalación y Actualización de Software</h3>
+                    </div>
+                    <ul class="text-gray-700 text-lg mb-4 list-disc list-inside space-y-2">
+                        <li>Instalación de Windows y sistemas operativos.</li>
+                        <li>Instalación de programas esenciales y especializados.</li>
+                        <li>Actualizaciones de software para un rendimiento óptimo.</li>
+                    </ul>
+                    <p class="text-office-red font-bold text-2xl mt-auto self-end">$10.000 CLP</p>
+                </div>
+                <!-- Tarjeta de Servicio 2 -->
+                <div class="card flex flex-col items-start p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tools text-navy text-4xl mr-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900">Mantenimiento y Limpieza de Equipos</h3>
+                    </div>
+                    <ul class="text-gray-700 text-lg mb-4 list-disc list-inside space-y-2">
+                        <li>Mantenimiento y limpieza profunda de laptops.</li>
+                        <li>Limpieza y optimización de consolas de videojuegos.</li>
+                        <li>Mantenimiento de computadores de escritorio y equipos Gamer.</li>
+                        <li>Reparación y mantenimiento de mandos.</li>
+                    </ul>
+                    <p class="text-office-red font-bold text-2xl mt-auto self-end">$10.000 CLP</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Mí -->
+    <section id="about" class="section-padding bg-beige">
+        <div class="container flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <!-- Placeholder para la imagen, podrías usar una foto tuya aquí -->
+                <img src="https://placehold.co/600x400/1F3A5F/F5EEDC?text=Sobre+Mí" alt="Sobre Tkiila" class="rounded-xl shadow-lg w-full h-auto object-cover">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h2 class="text-4xl font-bold mb-6 text-navy">Quién soy y mi compromiso</h2>
+                <p class="text-lg text-gray-700 mb-4">
+                    Soy Christian Márquez Escobar, el profesional detrás de Tkiila. Mi pasión es la tecnología y mi objetivo es asegurarme de que tus equipos funcionen a la perfección.
+                </p>
+                <p class="text-lg text-gray-700 mb-4">
+                    Ofrezco soluciones de mantenimiento, instalación y actualización con un enfoque en la calidad y la satisfacción del cliente. ¡Conmigo, puedes estar "sin miedo a la tecnología" porque "lo dejo listo para ti"!
+                </p>
+                <div class="text-navy font-semibold text-xl flex items-center justify-center md:justify-start">
+                    <i class="fas fa-map-marker-alt mr-3 text-2xl"></i>
+                    Chiguayante, Concepción
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Galería (Opcional) -->
+    <section id="gallery" class="section-padding bg-light-beige">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 text-navy">Galería de Trabajos Realizados</h2>
+            <p class="text-center text-gray-700 text-lg mb-8">
+                Aquí puedes ver ejemplos de mis trabajos de mantenimiento y reparación.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Ejemplo de imagen en la galería (puedes duplicar esto y cambiar las imágenes) -->
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Limpieza+Laptop" alt="Limpieza de Laptop" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Limpieza de Laptop</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Actualizacion+PC" alt="Actualización de PC" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Actualización de PC</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Reparacion+Consola" alt="Reparación de Consola" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Reparación de Consola</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Mantenimiento+Mando" alt="Mantenimiento de Mando" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Mantenimiento de Mando</p>
+                    </div>
+                </div>
+                <!-- Añade más imágenes aquí reemplazando los placeholds por tus propias URLs -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contact" class="section-padding bg-beige">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 text-navy">Contáctame</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="card p-8 flex flex-col space-y-6">
+                    <div class="flex items-center text-gray-700 text-lg">
+                        <i class="fas fa-map-marker-alt text-navy text-2xl mr-4"></i>
+                        <span>Chiguayante, Concepción</span>
+                    </div>
+                    <div class="flex items-center text-gray-700 text-lg">
+                        <i class="fas fa-at text-navy text-2xl mr-4"></i>
+                        <span>@christian.mrquez</span>
+                    </div>
+                    <div class="flex items-center text-gray-700 text-lg">
+                        <i class="fab fa-facebook text-navy text-2xl mr-4"></i>
+                        <span>christian.marquez.escobar</span>
+                    </div>
+                    <div class="flex items-center text-gray-700 text-lg">
+                        <i class="fas fa-phone text-navy text-2xl mr-4"></i>
+                        <span>+56 9 8849 8812</span>
+                    </div>
+                </div>
+                <div class="card p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-navy">Envía un Mensaje</h3>
+                    <form action="#" method="POST" class="space-y-5">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nombre</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy" placeholder="Tu Nombre" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy" placeholder="tu.email@ejemplo.com" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy" placeholder="Describe lo que necesitas..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">
+                            Enviar Mensaje <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-10 text-center">
+        <div class="container mx-auto px-4">
+            <p class="text-lg mb-4">&copy; 2025 Tkiila. Todos los derechos reservados.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.instagram.com/christian.mrquez" target="_blank" class="text-beige hover:text-white transition-colors social-link">
+                    <i class="fab fa-instagram text-3xl"></i>
+                </a>
+                <a href="https://www.facebook.com/christian.marquez.escobar" target="_blank" class="text-beige hover:text-white transition-colors social-link">
+                    <i class="fab fa-facebook-f text-3xl"></i>
+                </a>
+                <a href="tel:+56988498812" class="text-beige hover:text-white transition-colors social-link">
+                    <i class="fas fa-phone-alt text-3xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica para el menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Ejecutar animaciones al cargar la ventana
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.animate-fade-in-down');
+            const heroSubtitle = document.querySelector('.animate-fade-in-up');
+            const heroButton = document.querySelector('.animate-scale-in');
+
+            if (heroTitle) heroTitle.style.animation = 'fadeInDown 1s ease-out forwards';
+            if (heroSubtitle) heroSubtitle.style.animation = 'fadeInUp 1s ease-out forwards 0.3s';
+            if (heroButton) heroButton.style.animation = 'scaleIn 1s ease-out forwards 0.6s';
+        });
+    </script>
+</body>
+</html>

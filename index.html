@@ -1,324 +1,606 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tkiila - Soluciones Tecnológicas</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Favicon SVG puro -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='8' width='48' height='48' rx='8' fill='%231F3A5F' stroke='%2338bdf8' stroke-width='4'/%3E%3Cpath d='M16 8v-8M24 8v-8M32 8v-8M40 8v-8M48 8v-8M16 56v8M24 56v8M32 56v8M40 56v8M48 56v8M8 16h-8M8 24h-8M8 32h-8M8 40h-8M8 48h-8M56 16h8M56 24h8M56 32h8M56 40h8M56 48h8' stroke='%2338bdf8' stroke-width='2'/%3E%3Cpath d='M22 22h20v6h-7v14h-6V28h-7z' fill='%2338bdf8'/%3E%3C/svg%3E"
+    />
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuración personalizada de Tailwind para colores -->
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Azul Marino
-                        'navy': '#1F3A5F',
-                        // Rojo tipo Oficina (un rojo más oscuro y profesional)
-                        'office-red': '#991D1D',
-                        // Beige
-                        'beige': '#F5EEDC',
-                        'light-beige': '#FCFBF8', // Un beige aún más claro para fondos
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy: "#0f172a" /* Azul marino profundo */,
+              "office-red": "#dc2626",
+              beige: "#f8fafc",
+            },
+          },
+        },
+      };
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Fondo general para los espacios entre secciones */
-            color: #333;
-            line-height: 1.6;
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f1f5f9;
+        color: #334155;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      .section-padding {
+        padding: 90px 0;
+      }
+
+      /* Animaciones Hero */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
-        /* Estilos personalizados para efectos de desplazamiento suave */
-        html {
-            scroll-behavior: smooth;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        .section-padding {
-            padding: 80px 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .card {
-            background-color: white; /* Las tarjetas mantienen un fondo blanco para contraste */
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-        .btn-primary {
-            background-color: var(--tw-colors-navy); /* Usar la variable de color CSS para navy */
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #1a304b; /* Azul marino un poco más oscuro para hover */
-        }
-        .social-link {
-            transition: transform 0.2s ease;
-        }
-        .social-link:hover {
-            transform: scale(1.1);
-        }
-        /* Animaciones para el Hero (definidas aquí para que Tailwind las use) */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .animate-fade-in-down { animation: fadeInDown 1s ease-out forwards; }
-        .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards 0.3s; }
-        .animate-scale-in { animation: scaleIn 1s ease-out forwards 0.6s; }
+      }
+      .animate-fade-up {
+        animation: fadeUp 0.8s ease-out forwards;
+      }
+      .delay-100 {
+        animation-delay: 0.1s;
+        opacity: 0;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+        opacity: 0;
+      }
     </style>
-</head>
-<body class="overflow-x-hidden">
-    <!-- Barra de navegación -->
-    <nav class="bg-light-beige shadow-lg fixed w-full z-10 top-0">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-navy rounded-lg p-2 hover:bg-beige transition-colors">Tkiila</a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Inicio</a>
-                <a href="#services" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Servicios</a>
-                <a href="#about" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Sobre Mí</a>
-                <a href="#gallery" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Galería</a>
-                <a href="#contact" class="text-gray-700 hover:text-navy font-medium transition-colors p-2 rounded-lg hover:bg-beige">Contacto</a>
-            </div>
-            <!-- Botón de menú móvil -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-navy focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
+  </head>
+
+  <body class="overflow-x-hidden">
+    <!-- Navegación -->
+    <nav
+      class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 border-b border-gray-100"
+    >
+      <div
+        class="container mx-auto max-w-7xl px-4 py-4 flex justify-between items-center"
+      >
+        <a
+          href="#home"
+          class="flex items-center text-2xl font-black text-navy group"
+        >
+          <svg
+            class="w-8 h-8 mr-2 text-blue-600 transition-transform group-hover:rotate-12"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 64 64"
+          >
+            <rect
+              x="8"
+              y="8"
+              width="48"
+              height="48"
+              rx="8"
+              fill="currentColor"
+              stroke="#38bdf8"
+              stroke-width="4"
+            />
+            <path
+              d="M16 8v-8M24 8v-8M32 8v-8M40 8v-8M48 8v-8M16 56v8M24 56v8M32 56v8M40 56v8M48 56v8M8 16h-8M8 24h-8M8 32h-8M8 40h-8M8 48h-8M56 16h8M56 24h8M56 32h8M56 40h8M56 48h8"
+              stroke="#38bdf8"
+              stroke-width="2"
+            />
+            <path d="M22 22h20v6h-7v14h-6V28h-7z" fill="#38bdf8" />
+          </svg>
+          Tkiila
+        </a>
+        <div
+          class="hidden md:flex space-x-8 font-bold text-sm tracking-wide text-gray-600"
+        >
+          <a href="#services" class="hover:text-blue-600 transition-colors"
+            >Servicios</a
+          >
+          <a href="#gallery" class="hover:text-blue-600 transition-colors"
+            >Galería & Resultados</a
+          >
+          <a href="#about" class="hover:text-blue-600 transition-colors"
+            >Sobre Mí / Contacto</a
+          >
         </div>
-        <!-- Menú móvil -->
-        <div id="mobile-menu" class="hidden md:hidden bg-light-beige py-4 shadow-inner">
-            <a href="#home" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Inicio</a>
-            <a href="#services" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Servicios</a>
-            <a href="#about" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Sobre Mí</a>
-            <a href="#gallery" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Galería</a>
-            <a href="#contact" class="block px-4 py-2 text-gray-800 hover:bg-beige rounded-lg transition-colors" onclick="closeMobileMenu()">Contacto</a>
-        </div>
+        <button id="mobile-menu-button" class="md:hidden text-navy text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <!-- Menú Móvil -->
+      <div
+        id="mobile-menu"
+        class="hidden bg-white border-t p-4 text-center font-bold flex flex-col space-y-4 shadow-lg"
+      >
+        <a
+          href="#services"
+          onclick="closeMobileMenu()"
+          class="text-gray-700 hover:text-blue-600"
+          >Servicios</a
+        >
+        <a
+          href="#gallery"
+          onclick="closeMobileMenu()"
+          class="text-gray-700 hover:text-blue-600"
+          >Galería & Resultados</a
+        >
+        <a
+          href="#about"
+          onclick="closeMobileMenu()"
+          class="text-gray-700 hover:text-blue-600"
+          >Sobre Mí / Contacto</a
+        >
+      </div>
     </nav>
 
-    <!-- Sección de inicio (Hero) -->
-    <header id="home" class="bg-gradient-to-r from-navy to-gray-900 text-white min-h-screen flex items-center justify-center text-center pt-20">
-        <div class="container mx-auto px-4 py-16">
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight animate-fade-in-down">
-                Tkiila: Soluciones Tecnológicas Sin Miedo
-            </h1>
-            <p class="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in-up">
-                Lo dejo listo para ti. Mantenimiento, instalación y actualización de tus equipos.
-            </p>
-            <a href="#services" class="btn-primary inline-block text-lg animate-scale-in">
-                Ver mis servicios <i class="fas fa-chevron-right ml-2"></i>
-            </a>
+    <!-- Hero Section -->
+    <header
+      id="home"
+      class="relative min-h-screen flex items-center justify-center text-center pt-20 bg-cover bg-center"
+      style="background-image: url(&quot;assets/20260908_170140.jpg.jpeg&quot;)"
+    >
+      <!-- Filtro oscuro -->
+      <div class="absolute inset-0 bg-gray-900 bg-opacity-85"></div>
+      <!-- Partículas -->
+      <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+      <div
+        class="relative z-10 container mx-auto px-4 max-w-4xl pointer-events-none"
+      >
+        <h1
+          class="text-5xl md:text-7xl font-black mb-6 text-white tracking-tight animate-fade-up"
+        >
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-lg"
+            >Tkiila:</span
+          ><br />
+          Sin miedo a la tecnología.
+        </h1>
+        <p
+          class="text-xl md:text-2xl mb-10 text-gray-300 font-medium animate-fade-up delay-100"
+        >
+          Mantenimiento de hardware, optimización de software y desarrollo web.
+          <strong class="text-white">Lo dejo listo para ti.</strong>
+        </p>
+        <div class="pointer-events-auto animate-fade-up delay-200">
+          <a
+            href="#services"
+            class="bg-blue-600 border border-blue-400 text-white font-bold py-4 px-10 rounded-full hover:bg-blue-500 transition-all transform hover:-translate-y-1 inline-block shadow-[0_0_20px_rgba(37,99,235,0.6)] hover:shadow-[0_0_30px_rgba(56,189,248,0.8)]"
+          >
+            Ver Servicios <i class="fas fa-rocket ml-2"></i>
+          </a>
         </div>
+      </div>
     </header>
 
-    <!-- Sección de Servicios -->
-    <section id="services" class="section-padding bg-light-beige">
-        <div class="container">
-            <h2 class="text-4xl font-bold text-center mb-12 text-navy">Nuestros Servicios</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                <!-- Tarjeta de Servicio 1 -->
-                <div class="card flex flex-col items-start p-6">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-desktop text-navy text-4xl mr-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900">Instalación y Actualización de Software</h3>
-                    </div>
-                    <ul class="text-gray-700 text-lg mb-4 list-disc list-inside space-y-2">
-                        <li>Instalación de Windows y sistemas operativos.</li>
-                        <li>Instalación de programas esenciales y especializados.</li>
-                        <li>Actualizaciones de software para un rendimiento óptimo.</li>
-                    </ul>
-                    <p class="text-office-red font-bold text-2xl mt-auto self-end">$10.000 CLP</p>
-                </div>
-                <!-- Tarjeta de Servicio 2 -->
-                <div class="card flex flex-col items-start p-6">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-tools text-navy text-4xl mr-4"></i>
-                        <h3 class="text-2xl font-semibold text-gray-900">Mantenimiento y Limpieza de Equipos</h3>
-                    </div>
-                    <ul class="text-gray-700 text-lg mb-4 list-disc list-inside space-y-2">
-                        <li>Mantenimiento y limpieza profunda de laptops.</li>
-                        <li>Limpieza y optimización de consolas de videojuegos.</li>
-                        <li>Mantenimiento de computadores de escritorio y equipos Gamer.</li>
-                        <li>Reparación y mantenimiento de mandos.</li>
-                    </ul>
-                    <p class="text-office-red font-bold text-2xl mt-auto self-end">$10.000 CLP</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- 1. Servicios (3 Columnas Directas) -->
+    <section id="services" class="section-padding bg-beige">
+      <div class="container mx-auto max-w-7xl px-4">
+        <h2 class="text-4xl font-black text-center mb-16 text-navy">
+          Mis Servicios
+        </h2>
 
-    <!-- Sección Sobre Mí -->
-    <section id="about" class="section-padding bg-beige">
-        <div class="container flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2">
-                <!-- Placeholder para la imagen, podrías usar una foto tuya aquí -->
-                <img src="https://placehold.co/600x400/1F3A5F/F5EEDC?text=Sobre+Mí" alt="Sobre Tkiila" class="rounded-xl shadow-lg w-full h-auto object-cover">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Software -->
+          <div
+            class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-blue-500 hover:shadow-xl transition-shadow flex flex-col group"
+          >
+            <div class="flex items-center mb-6">
+              <div
+                class="bg-blue-100 p-4 rounded-xl text-blue-600 mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors"
+              >
+                <i class="fab fa-windows text-3xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-navy">
+                Software y Optimización
+              </h3>
             </div>
-            <div class="md:w-1/2 text-center md:text-left">
-                <h2 class="text-4xl font-bold mb-6 text-navy">Quién soy y mi compromiso</h2>
-                <p class="text-lg text-gray-700 mb-4">
-                    Soy Christian Márquez Escobar, el profesional detrás de Tkiila. Mi pasión es la tecnología y mi objetivo es asegurarme de que tus equipos funcionen a la perfección.
-                </p>
-                <p class="text-lg text-gray-700 mb-4">
-                    Ofrezco soluciones de mantenimiento, instalación y actualización con un enfoque en la calidad y la satisfacción del cliente. ¡Conmigo, puedes estar "sin miedo a la tecnología" porque "lo dejo listo para ti"!
-                </p>
-                <div class="text-navy font-semibold text-xl flex items-center justify-center md:justify-start">
-                    <i class="fas fa-map-marker-alt mr-3 text-2xl"></i>
-                    Chiguayante, Concepción
-                </div>
-            </div>
-        </div>
-    </section>
+            <ul class="text-gray-600 mb-8 space-y-3 flex-grow">
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i> Instalación de
+                Windows limpia.
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i> Programas
+                esenciales y Office.
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i> Ajustes de BIOS
+                y actualizaciones.
+              </li>
+            </ul>
+            <div class="text-3xl font-black text-blue-600">$15.000 CLP</div>
+          </div>
 
-    <!-- Sección de Galería (Opcional) -->
-    <section id="gallery" class="section-padding bg-light-beige">
-        <div class="container">
-            <h2 class="text-4xl font-bold text-center mb-12 text-navy">Galería de Trabajos Realizados</h2>
-            <p class="text-center text-gray-700 text-lg mb-8">
-                Aquí puedes ver ejemplos de mis trabajos de mantenimiento y reparación.
+          <!-- Hardware -->
+          <div
+            class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-office-red hover:shadow-xl transition-shadow flex flex-col group"
+          >
+            <div class="flex items-center mb-6">
+              <div
+                class="bg-red-100 p-4 rounded-xl text-office-red mr-4 group-hover:bg-office-red group-hover:text-white transition-colors"
+              >
+                <i class="fas fa-microchip text-3xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-navy">
+                Hardware y Mantenimiento
+              </h3>
+            </div>
+            <ul class="text-gray-600 mb-8 space-y-3 flex-grow">
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i> Limpieza de
+                Laptops y PC Gamer.
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i> Cambio de pasta
+                térmica (MX-4).
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i> Mantenimiento
+                de consolas y mandos.
+              </li>
+            </ul>
+            <div class="text-3xl font-black text-office-red">
+              desde $25.000 CLP
+            </div>
+          </div>
+
+          <!-- Desarrollo Web (NUEVO) -->
+          <div
+            class="bg-navy p-8 rounded-2xl shadow-xl transform md:-translate-y-4 border border-gray-700 flex flex-col group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 opacity-10 text-9xl text-white"
+            >
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="flex items-center mb-6 relative z-10">
+              <div
+                class="bg-gray-800 p-4 rounded-xl text-cyan-400 mr-4 border border-cyan-500/30"
+              >
+                <i class="fas fa-globe text-3xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white">Desarrollo Web</h3>
+            </div>
+            <p class="text-gray-300 mb-8 flex-grow relative z-10">
+              Impulsa tu negocio con una
+              <strong>página web personalizada</strong>, rápida, moderna y
+              adaptable a celulares. Presencia digital profesional a tu alcance.
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Ejemplo de imagen en la galería (puedes duplicar esto y cambiar las imágenes) -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group">
-                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Limpieza+Laptop" alt="Limpieza de Laptop" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <p class="text-white text-lg font-semibold">Limpieza de Laptop</p>
-                    </div>
-                </div>
-                <div class="relative overflow-hidden rounded-lg shadow-lg group">
-                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Actualizacion+PC" alt="Actualización de PC" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <p class="text-white text-lg font-semibold">Actualización de PC</p>
-                    </div>
-                </div>
-                <div class="relative overflow-hidden rounded-lg shadow-lg group">
-                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Reparacion+Consola" alt="Reparación de Consola" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <p class="text-white text-lg font-semibold">Reparación de Consola</p>
-                    </div>
-                </div>
-                <div class="relative overflow-hidden rounded-lg shadow-lg group">
-                    <img src="https://placehold.co/400x300/F5EEDC/1F3A5F?text=Mantenimiento+Mando" alt="Mantenimiento de Mando" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-navy bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <p class="text-white text-lg font-semibold">Mantenimiento de Mando</p>
-                    </div>
-                </div>
-                <!-- Añade más imágenes aquí reemplazando los placeholds por tus propias URLs -->
+            <div class="text-3xl font-black text-cyan-400 relative z-10">
+              Desde $80.000 CLP
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Sección de Contacto -->
-    <section id="contact" class="section-padding bg-beige">
-        <div class="container">
-            <h2 class="text-4xl font-bold text-center mb-12 text-navy">Contáctame</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="card p-8 flex flex-col space-y-6">
-                    <div class="flex items-center text-gray-700 text-lg">
-                        <i class="fas fa-map-marker-alt text-navy text-2xl mr-4"></i>
-                        <span>Chiguayante, Concepción</span>
-                    </div>
-                    <div class="flex items-center text-gray-700 text-lg">
-                        <i class="fas fa-at text-navy text-2xl mr-4"></i>
-                        <span>@christian.mrquez</span>
-                    </div>
-                    <div class="flex items-center text-gray-700 text-lg">
-                        <i class="fab fa-facebook text-navy text-2xl mr-4"></i>
-                        <span>christian.marquez.escobar</span>
-                    </div>
-                    <div class="flex items-center text-gray-700 text-lg">
-                        <i class="fas fa-phone text-navy text-2xl mr-4"></i>
-                        <span>+56 9 8849 8812</span>
-                    </div>
-                </div>
-                <div class="card p-8">
-                    <h3 class="text-2xl font-semibold mb-6 text-navy">Envía un Mensaje</h3>
-                    <form action="#" method="POST" class="space-y-5">
-                        <div>
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Nombre</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy" placeholder="Tu Nombre" required>
-                        </div>
-                        <div>
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy" placeholder="tu.email@ejemplo.com" required>
-                        </div>
-                        <div>
-                            <label for="message" class="block text-gray-700 font-medium mb-2">Mensaje</label>
-                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy" placeholder="Describe lo que necesitas..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary w-full">
-                            Enviar Mensaje <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
+    <!-- 2. Galería & Resultados (El punto medio perfecto: Caso de éxito visual + Datos) -->
+    <section
+      id="gallery"
+      class="section-padding bg-navy relative border-y-4 border-cyan-400"
+    >
+      <div class="container mx-auto max-w-7xl px-4 relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-4">
+            Caso de Éxito: <span class="text-office-red">Rescate Total</span>
+          </h2>
+          <p class="text-xl text-cyan-400 font-medium">
+            El polvo silencioso destruye equipos. Mira cómo trabajamos.
+          </p>
         </div>
+
+        <!-- Galería del proceso (Las fotitos del Pablo) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <!-- CPU Repaste -->
+          <div
+            class="relative rounded-2xl overflow-hidden shadow-2xl group border border-gray-700"
+          >
+            <img
+              src="assets/20260909_105937.jpg.jpeg"
+              alt="Aplicación de pasta térmica CPU"
+              class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div
+              class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-6"
+            >
+              <span
+                class="bg-office-red text-white text-xs font-bold px-2 py-1 rounded uppercase mb-2 inline-block"
+                >Paso 1</span
+              >
+              <h3 class="text-white font-bold text-lg">Preparación del CPU</h3>
+            </div>
+          </div>
+          <!-- GPU Repaste -->
+          <div
+            class="relative rounded-2xl overflow-hidden shadow-2xl group border border-gray-700"
+          >
+            <img
+              src="assets/20260908_175913.jpg.jpeg"
+              alt="Cambio de pasta gráfica GPU"
+              class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div
+              class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-6"
+            >
+              <span
+                class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded uppercase mb-2 inline-block"
+                >Paso 2</span
+              >
+              <h3 class="text-white font-bold text-lg">
+                Mantenimiento de Gráfica
+              </h3>
+            </div>
+          </div>
+          <!-- Resultado Final (El PC del Pablo) -->
+          <div
+            class="relative rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(220,38,38,0.3)] group border-2 border-office-red"
+          >
+            <img
+              src="assets/IMG-20260911-WA0008.jpg.jpeg"
+              alt="PC Gamer Limpio con RGB Rojo"
+              class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div
+              class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-6"
+            >
+              <span
+                class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded uppercase mb-2 inline-block"
+                >Resultado Final</span
+              >
+              <h3 class="text-white font-bold text-lg">
+                Rendimiento Extremo Restaurado
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Datos Duros: Antes vs Después -->
+        <div
+          class="bg-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-700 max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10"
+        >
+          <div class="w-full md:w-1/2">
+            <h3 class="text-2xl font-bold text-white mb-4">
+              Los números no mienten 📉
+            </h3>
+            <p class="text-gray-400 mb-6">
+              Tras realizar el desensamble profundo y aplicar compuesto térmico
+              premium, logramos rescatar el equipo del estrangulamiento térmico
+              (Thermal Throttling).
+            </p>
+            <div
+              class="flex items-center justify-between bg-gray-900 p-6 rounded-2xl border border-gray-700"
+            >
+              <div>
+                <p
+                  class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1"
+                >
+                  Peligro
+                </p>
+                <p class="text-3xl font-black text-office-red">85.8°C</p>
+              </div>
+              <i class="fas fa-chevron-right text-gray-600 text-3xl"></i>
+              <div class="text-right">
+                <p
+                  class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1"
+                >
+                  Óptimo
+                </p>
+                <p class="text-3xl font-black text-cyan-400">68.1°C</p>
+              </div>
+            </div>
+          </div>
+          <!-- Evidencia del Software -->
+          <div
+            class="w-full md:w-1/2 rounded-xl overflow-hidden border-2 border-gray-600 shadow-lg"
+          >
+            <img
+              src="assets/IMG_20260926_175144_597.jpg.jpeg"
+              alt="Evidencia de temperaturas en software"
+              class="w-full h-auto"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Sobre Mí & Contacto Directo -->
+    <section id="about" class="section-padding bg-white">
+      <div class="container mx-auto max-w-6xl px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <!-- Bio -->
+          <div>
+            <h2 class="text-4xl font-black text-navy mb-6">
+              Christian Márquez
+            </h2>
+            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+              Soy el profesional detrás de Tkiila. Mi pasión es la tecnología y
+              mi objetivo es claro: asegurarme de que tus equipos funcionen a la
+              perfección. Ya sea rescatando un PC Gamer del sobrecalentamiento,
+              reviviendo un notebook antiguo o programando la web para tu
+              negocio.
+            </p>
+            <div
+              class="inline-flex items-center bg-gray-100 px-6 py-4 rounded-xl font-bold text-navy shadow-sm mb-8"
+            >
+              <i
+                class="fas fa-map-marker-alt text-office-red mr-3 text-2xl"
+              ></i>
+              Chiguayante, Concepción
+            </div>
+          </div>
+
+          <!-- Enlaces de Contacto Destacados -->
+          <div
+            class="bg-beige p-8 rounded-3xl shadow-lg border border-gray-200 relative"
+          >
+            <div class="absolute -top-6 inset-x-0 flex justify-center">
+              <span
+                class="bg-navy text-white font-bold py-2 px-6 rounded-full shadow-lg"
+                >¿Hablamos?</span
+              >
+            </div>
+            <div class="mt-4 space-y-4">
+              <a
+                href="https://wa.me/56988498812"
+                target="_blank"
+                class="flex items-center justify-between p-5 bg-white rounded-xl shadow-sm hover:shadow-md hover:border-green-500 border border-transparent transition-all group"
+              >
+                <div class="flex items-center">
+                  <i
+                    class="fab fa-whatsapp text-4xl text-green-500 mr-4 group-hover:scale-110 transition-transform"
+                  ></i>
+                  <div>
+                    <p class="text-sm text-gray-500 font-bold uppercase">
+                      WhatsApp
+                    </p>
+                    <p class="font-black text-navy text-lg">+56 9 8849 8812</p>
+                  </div>
+                </div>
+                <i
+                  class="fas fa-arrow-right text-gray-300 group-hover:text-green-500 transition-colors"
+                ></i>
+              </a>
+
+              <a
+                href="https://instagram.com/christian.marquez.esc"
+                target="_blank"
+                class="flex items-center justify-between p-5 bg-white rounded-xl shadow-sm hover:shadow-md hover:border-pink-500 border border-transparent transition-all group"
+              >
+                <div class="flex items-center">
+                  <i
+                    class="fab fa-instagram text-4xl text-pink-600 mr-4 group-hover:scale-110 transition-transform"
+                  ></i>
+                  <div>
+                    <p class="text-sm text-gray-500 font-bold uppercase">
+                      Instagram
+                    </p>
+                    <p class="font-black text-navy text-lg">
+                      @christian.marquez.esc
+                    </p>
+                  </div>
+                </div>
+                <i
+                  class="fas fa-arrow-right text-gray-300 group-hover:text-pink-600 transition-colors"
+                ></i>
+              </a>
+
+              <a
+                href="https://facebook.com/christian.marquez.esc"
+                target="_blank"
+                class="flex items-center justify-between p-5 bg-white rounded-xl shadow-sm hover:shadow-md hover:border-blue-500 border border-transparent transition-all group"
+              >
+                <div class="flex items-center">
+                  <i
+                    class="fab fa-facebook text-4xl text-blue-600 mr-4 group-hover:scale-110 transition-transform"
+                  ></i>
+                  <div>
+                    <p class="text-sm text-gray-500 font-bold uppercase">
+                      Facebook
+                    </p>
+                    <p class="font-black text-navy text-lg">
+                      christian.marquez.esc
+                    </p>
+                  </div>
+                </div>
+                <i
+                  class="fas fa-arrow-right text-gray-300 group-hover:text-blue-600 transition-colors"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-navy text-white py-10 text-center">
-        <div class="container mx-auto px-4">
-            <p class="text-lg mb-4">&copy; 2027 Tkiila. Todos los derechos reservados.</p>
-            <div class="flex justify-center space-x-6">
-                <a href="https://www.instagram.com/christian.mrquez" target="_blank" class="text-beige hover:text-white transition-colors social-link">
-                    <i class="fab fa-instagram text-3xl"></i>
-                </a>
-                <a href="https://www.facebook.com/christian.marquez.escobar" target="_blank" class="text-beige hover:text-white transition-colors social-link">
-                    <i class="fab fa-facebook-f text-3xl"></i>
-                </a>
-                <a href="tel:+56988498812" class="text-beige hover:text-white transition-colors social-link">
-                    <i class="fas fa-phone-alt text-3xl"></i>
-                </a>
-            </div>
-        </div>
+    <footer class="bg-navy text-gray-400 py-8 text-center text-sm">
+      <p>&copy; 2026 Tkiila. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- Botón Flotante WhatsApp (Call to Action constante) -->
+    <a
+      href="https://wa.me/56988498812?text=Hola%20Christian,%20necesito%20ayuda%20con%20un%20servicio."
+      target="_blank"
+      class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-[0_4px_15px_rgba(34,197,94,0.5)] hover:bg-green-600 hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center group"
+    >
+      <i class="fab fa-whatsapp text-3xl"></i>
+      <span
+        class="absolute right-16 bg-gray-900 text-white font-bold text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-lg"
+      >
+        Agendar servicio
+      </span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Lógica para el menú móvil
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+      // Menú Móvil
+      const btn = document.getElementById("mobile-menu-button");
+      const menu = document.getElementById("mobile-menu");
+      btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+      function closeMobileMenu() {
+        menu.classList.add("hidden");
+      }
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+      // Partículas Interactivas del Hero
+      if (window.particlesJS) {
+        particlesJS("particles-js", {
+          particles: {
+            number: { value: 60, density: { enable: true, value_area: 800 } },
+            color: { value: "#38bdf8" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: false },
+            size: { value: 3, random: true },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#38bdf8",
+              opacity: 0.3,
+              width: 1,
+            },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: "none",
+              random: false,
+              straight: false,
+              out_mode: "out",
+              bounce: false,
+            },
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: { enable: true, mode: "grab" },
+              onclick: { enable: true, mode: "push" },
+              resize: true,
+            },
+            modes: {
+              grab: { distance: 200, line_linked: { opacity: 0.6 } },
+              push: { particles_nb: 3 },
+            },
+          },
+          retina_detect: true,
         });
-
-        function closeMobileMenu() {
-            mobileMenu.classList.add('hidden');
-        }
-
-        // Ejecutar animaciones al cargar la ventana
-        window.addEventListener('load', () => {
-            const heroTitle = document.querySelector('.animate-fade-in-down');
-            const heroSubtitle = document.querySelector('.animate-fade-in-up');
-            const heroButton = document.querySelector('.animate-scale-in');
-
-            if (heroTitle) heroTitle.style.animation = 'fadeInDown 1s ease-out forwards';
-            if (heroSubtitle) heroSubtitle.style.animation = 'fadeInUp 1s ease-out forwards 0.3s';
-            if (heroButton) heroButton.style.animation = 'scaleIn 1s ease-out forwards 0.6s';
-        });
+      }
     </script>
-</body>
+  </body>
 </html>
